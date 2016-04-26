@@ -11,8 +11,8 @@ cache:
 
 install:
   - ECHO %ruby_version:~0,5%
-  - IF %ruby_version:~0,5% == "jruby" ECHO 'hi'
-  - IF %ruby_version:~0,5% == "jruby" SET JRUBY_OPTS="--dev -J-Xmx1024M --debug"
+  - IF %ruby_version:~0,5%=="jruby" ECHO 'hi'
+  - IF %ruby_version:~0,5%=="jruby" SET JRUBY_OPTS="--dev -J-Xmx1024M --debug"
   - SET PATH=C:\%ruby_version%\bin;%PATH%
   - gem install bundler
   - bundle env
