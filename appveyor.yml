@@ -3,7 +3,6 @@ version: '{build}'
 skip_tags: true
 
 environment:
-  JRUBY_OPTS: "--dev -J-Xmx1024M --debug"
   matrix:
     - ruby_version: "Ruby21"
     - ruby_version: "Ruby21-x64"
@@ -13,6 +12,11 @@ cache:
   - vendor/bundle
 
 install:
+  - |
+    if %ruby_version:~0,5% == "jruby" (
+      SET JRUBY_OPTS="--dev -J-Xmx1024M --debug"
+      set VAR=after
+    )
   - SET PATH=C:\%ruby_version%\bin;%PATH%
   - gem install bundler
   - bundle env
