@@ -4,20 +4,17 @@ skip_tags: true
 
 environment:
   matrix:
-    - ruby_version: "21"
-    - ruby_version: "21-x64"
-    - ruby_version: "jruby-9.0.4.0"
+    - ruby_version: "jruby-9.0.0.0"
 
 cache:
   - vendor/bundle
 
 install:
-  - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
-  - ruby --version
-  - gem --version
+  - IF NOT "%ruby_version:jruby=%" == "%ruby_version%" ECHO 'hi'
+  - IF NOT "%ruby_version:jruby=%" == "%ruby_version%" SET JRUBY_OPTS="--dev -J-Xmx1024M --debug"
+  - SET PATH=C:\%ruby_version%\bin;%PATH%
   - gem install bundler
-  - bundler --version
-  - bundle platform
+  - bundle env
   - bundle install --path=vendor/bundle --retry=3 --jobs=3
 
 test_script:
